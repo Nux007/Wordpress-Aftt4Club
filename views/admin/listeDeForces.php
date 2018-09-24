@@ -1,14 +1,19 @@
 <?php 
-
+error_reporting(E_ALL);
 // For tests only.
-if(file_exists("../lib/pdf/fpdf.php"))
-    require_once( "../lib/pdf/fpdf.php" );
+if(file_exists("../../lib/pdf/fpdf.php"))
+    require_once( "../../lib/pdf/fpdf.php" );
 
 
 // Printing plugin version of "liste de forces as PDF".
 if(isset($_GET["print_plugin_pdf"]) && $_GET["print_plugin_pdf"] == true){
-    include_once "../data/Aftt.php";
-    $ldf = new ListeDeForces($_GET["club_indice"]);
+    include_once "../../api/Aftt.php";
+    include_once "../../api/AfttClubs.php";
+    include_once "../../api/AfttMembers.php";
+    
+    $Club = new AfttClub();
+    $Club->init($_GET["club_index"]);
+    $ldf = new ListeDeForces($Club);
     $cmap = unserialize(htmlspecialchars_decode(base64_decode($_GET['cmap'])));
     $ldf->setColorsMap($cmap);
     $ldf->printPDF();
@@ -18,23 +23,14 @@ if(isset($_GET["print_plugin_pdf"]) && $_GET["print_plugin_pdf"] == true){
     
 class ListeDeForces{
     
-    private $club_indice; // DB indice.
-    private $aftt;
-    protected $members;
+    private $Club;
     public $colorsMap = array("header" => "#9cfff4", "th" => "#9cfff4", "borders" => "#f0f0f0", "even" => "#f0f0f0", "odd" => "#FFFFFF");
     
-    public function __construct($indice, $colors=false){
-        $this->club_indice = $indice;
+    public function __construct($Club, $colors=false){
+        $this->Club = $Club;
+        
         if($colors !== false)
             $this->colorsMap = $colors;
-        $this->aftt = new AfttScraper();
-        $this->members = $this->aftt->getClubMembers($indice);
-        
-        $indexes = array_column($this->members, 'index');
-        $names   = array_column($this->members, 'nom');
-        $class   = array_column($this->members, 'classement');
-        
-        array_multisort($indexes, SORT_ASC, $class, SORT_ASC, $names, SORT_ASC, $this->members);
     }
     
     
@@ -48,18 +44,8 @@ class ListeDeForces{
             echo '<link rel="stylesheet" type="text/css" href="../css/admin/listedeforces_1.css" media="screen" />';
         
             
-        $name = $this->aftt->getClubNameAndIndice($this->club_indice);
-        $season = $this->aftt->getCurrentSeason();
-        
-        if($name !== false)
-            $clubHeaderName = $name["indice"] . " - " . $name["name"];
-            
-        if($season !== false)
-            $clubCurrentSeason = "Saison: " . $season;
-        
-        $subline = "Liste de forces";
-        if(null !== $clubCurrentSeason)
-            $subline .= " - " . $clubCurrentSeason;
+        $subline = "Liste de forces - Saison: " . $this->Club->getSeason();
+        $header = $this->Club->index . " - " . $this->Club->name;
                 
         ?>
         
@@ -68,7 +54,7 @@ class ListeDeForces{
                 
                 <div id="ldf_header" style="background-color: <?php echo $this->colorsMap["header"]; ?>">
                     <p id='club_name'>
-                        <span style='font-size:26px; font-weight: bold;'><?php echo $clubHeaderName; ?></span><br />
+                        <span style='font-size:26px; font-weight: bold;'><?php echo $header; ?></span><br />
                         <span style='font-size: 16px;'><?php echo $subline; ?></span>
                     </p> 
                 </div>
@@ -90,20 +76,18 @@ class ListeDeForces{
                   <tbody>  
         <?php
         
-        $ordre = 1;
         $style= "border: 1px solid " . $this->colorsMap["borders"] . ";";
-        foreach($this->members as $member){
-            $fill = " background-color: " . (($ordre %2) == 0 ? $this->colorsMap["even"] : $this->colorsMap["odd"]);
+        foreach($this->Club->getMembers() as $Member){
+            $fill = " background-color: " . (($Member->position %2) == 0 ? $this->colorsMap["even"] : $this->colorsMap["odd"]);
       
             echo "<tr style='". $style . $fill . "'>";
-            echo "<td id='ordre' style='". $style . $fill . "'>".$ordre ."</td>";
-            echo "<td id='index' style='". $style . $fill . "'> ".$member['index']."</td>";
-            echo "<td id='affiliation' style='". $style . $fill . "'>".$member['numero_affiliation']."</td>";
-            echo "<td id='nom' style='". $style . $fill . "'>".$member['nom']."</td>";
-            echo "<td id='prenom' style='". $style . $fill . "'>".$member['prenom']."</td>";
-            echo "<td id='classement' style='". $style . $fill . "'>".$member['classement']."</td>";
+            echo "<td id='ordre' style='". $style . $fill . "'>".$Member->position ."</td>";
+            echo "<td id='index' style='". $style . $fill . "'> ".$Member->rankingIndex."</td>";
+            echo "<td id='affiliation' style='". $style . $fill . "'>".$Member->affiliation."</td>";
+            echo "<td id='nom' style='". $style . $fill . "'>".$Member->lastName."</td>";
+            echo "<td id='prenom' style='". $style . $fill . "'>".$Member->firstName."</td>";
+            echo "<td id='classement' style='". $style . $fill . "'>".$Member->ranking."</td>";
             echo "</tr>";
-            $ordre += 1;
         }
         ?>
                   </tbody>
@@ -120,12 +104,12 @@ class ListeDeForces{
                         <span>Si vous imprimez la liste de forces version plugin (premier bouton), les proportions seront automatiquement ajustées au format papier A4,
                               et la boîte de dialogue d'impression s'ouvrira toute seule !</span><br /><br />
                         <a target="_blank" 
-                           href="<?php echo $target; ?>?cmap=<?php echo $cmap ?>&print_plugin_pdf=true&club_indice=<?php echo $this->club_indice; ?>" 
+                           href="<?php echo $target; ?>?cmap=<?php echo $cmap ?>&print_plugin_pdf=true&club_index=<?php echo $this->Club->index ?>" 
                            id="print_ldf_plugin_ver" class="button-secondary" style="margin-right: 12px;">
                            Imprimer cette version
                         </a>
                         
-                        <a target="_blank" href="<?php echo $this->aftt->getAfttLdfLink($this->club_indice); ?>" class="button-secondary">
+                        <a target="_blank" href="<?php echo $this->Club->getAfttLdfLink(); ?>" class="button-secondary">
                            Imprimer version Aftt
                         </a>
                     
@@ -157,28 +141,18 @@ class ListeDeForces{
         $pdf->SetDrawColor( $border_r, $border_g, $border_b );
         
         // LDF header configuration.
-        $clubCurrentSeason = null;
-        $name = $this->aftt->getClubNameAndIndice($this->club_indice);
-        $season = $this->aftt->getCurrentSeason();
-        
-        if($name !== false)
-            $clubHeaderName = $name["indice"] . " - " . $name["name"];
-        
-        if($season !== false)
-            $clubCurrentSeason = "Saison: " . $season;
+        $header = $this->Club->index . " - " . $this->Club->name;        
+        $subline = "Liste de forces - Saison: " . $this->Club->getSeason();
      
         // Writing club and season infos.
         $pdf->SetFont( 'Arial', 'B', 15 );
         $pdf->Ln(0);
         $pdf->SetFillColor( $header_r, $header_g, $header_b );
-        $pdf->Cell( 182, 15, (null !== $clubHeaderName) ? $clubHeaderName : "", 1, 0, 'C', true );
+        $pdf->Cell( 182, 15, $header, 1, 0, 'C', true );
         
         // Writing club current season and table caption.
         $pdf->SetFont( 'Arial', '', 10 );
         $pdf->Ln(9);
-        $subline = "Liste de forces";
-        if(null !== $clubCurrentSeason)
-            $subline .= " - " . $clubCurrentSeason;
         $pdf->Cell( 182, 6, $subline, 0, 0, 'C' );
 
         // Create the table header row
@@ -199,20 +173,19 @@ class ListeDeForces{
         $pdf->SetFont( 'Arial', '', 10 );
         $i = 1;
         
-        foreach ( $this->members as $member ) {
+        foreach ( $this->Club->getMembers() as $Member ) {
             // Create the data cells
-            list($r, $g, $b) = sscanf((($i % 2) == 0 ? $this->colorsMap["even"] : $this->colorsMap["odd"]), "#%02x%02x%02x");
+            list($r, $g, $b) = sscanf((($Member->position % 2) == 0 ? $this->colorsMap["even"] : $this->colorsMap["odd"]), "#%02x%02x%02x");
             $pdf->SetFillColor( $r, $g, $b );
             
-            $pdf->Cell( 18, 6, $i, 1, 0, 'C', true );
-            $pdf->Cell( 18, 6, $member['index'], 1, 0, 'C', true );
-            $pdf->Cell( 24, 6, $member['numero_affiliation'], 1, 0, 'C', true );
-            $pdf->Cell( 54, 6, $member['nom'], 1, 0, 'C', true );
-            $pdf->Cell( 54, 6, $member['prenom'], 1, 0, 'C', true );
-            $pdf->Cell( 14, 6, $member['classement'], 1, 0, 'C', true );
+            $pdf->Cell( 18, 6, $Member->position, 1, 0, 'C', true );
+            $pdf->Cell( 18, 6, $Member->rankingIndex, 1, 0, 'C', true );
+            $pdf->Cell( 24, 6, $Member->affiliation, 1, 0, 'C', true );
+            $pdf->Cell( 54, 6, $Member->lastName, 1, 0, 'C', true );
+            $pdf->Cell( 54, 6, $Member->firstName, 1, 0, 'C', true );
+            $pdf->Cell( 14, 6, $Member->ranking, 1, 0, 'C', true );
             
             $pdf->Ln(6);
-            $i += 1;
         }
         
         $pdf->IncludeJS("this.print({bUI: false, bSilent: false, bShrinkToFit: true});");  
@@ -229,9 +202,5 @@ class ListeDeForces{
     }
     
 }
-
-
-
-
 
 ?>  
