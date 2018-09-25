@@ -1,9 +1,28 @@
 <?php
+/**
+ Aftt4Club is a wordpress plugin that helps to manage you Table Tennis club.
+ Copyright (C) 2018  Nux007
+ 
+ This file is part of Aftt4Club wordpress plugin.
+ 
+ Aftt4Club is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 2 of the License, or
+ (at your option) any later version.
+ 
+ Aftt4Club is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with Aftt4Club. If not, see <http://www.gnu.org/licenses/>.
+ **/
 
 /*
 Plugin Name:  Aftt4Club Plugin
 Plugin URI:   https://github.com/Nux007/Wordpress-Aftt4Club
-Description:  A scraper wordpress plugin that fetch tennis table clubs infos from aftt website. 
+Description:  A wordpress plugin using TabT api that fetch tennis table clubs infos. 
 Version:      0.0.1
 Author:       Nux007
 Author URI:   https://github.com/Nux007
@@ -18,24 +37,24 @@ Domain Path:  /languages
  * Import css and javascript...
  **/
 
-function aftt4club_setup_post_types() {
-    register_post_type( 'liste_de_force', ['public' => 'true'] );
-}
 
-
-function aftt4club_install() {
-    aftt4club_setup_post_types();
+function aftt4club_install() 
+{
     flush_rewrite_rules();
 }
 
 
-function aftt4club_deactivation() {
-    unregister_post_type( 'liste_de_force' );
+function aftt4club_deactivation() 
+{
     flush_rewrite_rules();
 }
 
 
-function add_aftt4club_styles(){
+/**
+ * Styles definition.
+ */
+function add_aftt4club_styles()
+{
     $src_ldf = plugin_dir_url( __FILE__ ).'css/admin/listedeforces_1.css';
     $src_cfg = plugin_dir_url( __FILE__ ).'css/admin/forms.css';
     $src_bjs = plugin_dir_url( __FILE__ ).'js/utils.js';
@@ -59,7 +78,19 @@ function add_aftt4club_styles(){
 }
 
 
-add_action( 'init', 'aftt4club_setup_post_types' );
+/**
+ * Availables shortcodes.
+ */
+function shortcode_show_ldf() {
+    include_once plugin_dir_path( __FILE__ )."./views/front/listeDeForcesFront.php";
+    $ldf = new ListeDeForcesFront("H207");
+    $ldf->print();
+}
+
+
+// Shortcodes.
+//add_shortcode( 'Liste_de_forces', 'shortcode_show_ldf' );
+add_shortcode( 'Liste_de_forces', 'shortcode_show_ldf' );
 add_action('admin_enqueue_scripts', 'add_aftt4club_styles');
 
 register_activation_hook( __FILE__, 'aftt4club_install' );

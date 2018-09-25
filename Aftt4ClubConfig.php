@@ -1,29 +1,63 @@
 <?php
 
+/**
+ Aftt4Club is a wordpress plugin that helps to manage you Table Tennis club.
+ Copyright (C) 2018  Nux007
+ 
+ This file is part of Aftt4Club wordpress plugin.
+ 
+ Aftt4Club is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 2 of the License, or
+ (at your option) any later version.
+ 
+ Aftt4Club is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with Aftt4Club. If not, see <http://www.gnu.org/licenses/>.
+ **/
+
 include_once plugin_dir_path( __FILE__ )."./api/Aftt.php";
 include_once plugin_dir_path( __FILE__ )."./api/AfttClubs.php";
 include_once plugin_dir_path( __FILE__ )."./api/AfttMembers.php";
 include_once plugin_dir_path( __FILE__ )."./api/AfttChallenge.php";
 
-
-include_once plugin_dir_path( __FILE__ )."./views/admin/listeDeForces.php";
+include_once plugin_dir_path( __FILE__ )."./views/common/listeDeForces.php";
+include_once plugin_dir_path( __FILE__ )."./views/admin/listeDeForcesAdmin.php";
 include_once plugin_dir_path( __FILE__ )."./views/admin/challenge.php";
 require_once plugin_dir_path( __FILE__ )."./lib/pdf/fpdf.php";
 
 
-class Aftt4ClubConfig {
+/**
+ * Plugin entry point.
+ *
+ * @author     Nux007 <007.nux@gmail.com>
+ * @link       https://github.com/Nux007/Wordpress-Aftt4Club
+ * @copyright  2018
+ * @since      Class available since Release 0.0.1
+ */
+class Aftt4ClubConfig 
+{
     
 	/**
-	 * Configuration and admin pages
+	 * Aftt4Configuration and admin pages constructor
 	 */
-	 
-	public function __construct(){
+	public function __construct()
+	{
 	    // Menu.
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_init', array($this, 'aftt4club_register_settings'));
 	}
 	
-	public function add_admin_menu(){
+	
+	/**
+	 * Add admin menu and sub menus.
+	 */
+	public function add_admin_menu()
+	{
 		add_menu_page('Plugin Aftt4Club', 'AFTT', 'manage_options', 'aftt4club_config', array($this, 'menu_html'));
 		add_submenu_page('aftt4club_config', 'Configuration', 'Configuration', 'manage_options', 'aftt4club_config', array($this, 'menu_html'));
 		add_submenu_page('aftt4club_config', 'Liste de forces', 'Liste de forces', 'manage_options', 'aftt_liste_de_forces', array($this, 'menu_html_liste_de_forces'));
@@ -31,7 +65,11 @@ class Aftt4ClubConfig {
 	}
 	
 	
-	public function aftt4club_register_settings(){
+	/**
+	 * Registering all needed settings.
+	 */
+	public function aftt4club_register_settings()
+	{
 	    // api credentials
 	    register_setting('aftt4club_settings', 'aftt4club_login');
 	    register_setting('aftt4club_settings', 'aftt4club_password');
@@ -48,8 +86,11 @@ class Aftt4ClubConfig {
 	}
 	
 	
-	// Global configuration menu.
-	public function menu_html(){
+	/**
+	 * Global configuration menu.
+	 */
+	public function menu_html()
+	{
         echo "<h1>".get_admin_page_title()."</h1>";
 		?>
 		
@@ -79,9 +120,10 @@ class Aftt4ClubConfig {
                   <?php 
                       // Getting all clubs indices.
                       $aftt = new AfttBasicInfos('', '');                  
-                      foreach($aftt->getClubs() as $club){
-                          $selected = get_option("aftt4club_index") == $club->index ? "selected='selected'" : "";
-                          echo '<option value="' . $club->index . '" ' . $selected . '>' . $club->index . ' - ' . $club->name . '</option>';   
+                      
+                      foreach($aftt->getClubs() as $club) {
+                          $selected = get_option("aftt4club_index") == $club->getIndex() ? "selected='selected'" : "";
+                          echo '<option value="' . $club->getIndex() . '" ' . $selected . '>' . $club->getIndex() . ' - ' . $club->getName() . '</option>';   
                       }
                   ?>
                   </select>
@@ -124,31 +166,38 @@ class Aftt4ClubConfig {
     }
     
     
-    
-    // Handle aftt club "Liste de forces" display and generation.
-    public function menu_html_liste_de_forces(){
+    /**
+     * Liste de forces menu.
+     */
+    public function menu_html_liste_de_forces()
+    {
         echo "<h1>" . get_admin_page_title() . "</h1>";
         
         if(get_option("aftt4club_index") !== False) {
-            $club = new AfttClub(get_option("aftt4club_login"), get_option("aftt4club_password"));
-            $club->init(get_option("aftt4club_index"));
+            $ldf = new ListeDeForcesAdmin(get_option("aftt4club_index"));
             
-            $ldf = new ListeDeForces($club);
-            $ldf->setColorsMap((get_option('aftt4club_ldf_header_color') !== false) ? get_option('aftt4club_ldf_header_color') : "#9cfff4", 
-                              (get_option('aftt4club_ldf_th_color') !== false) ? get_option('aftt4club_ldf_th_color') : "#9cfff4", 
-                              (get_option('aftt4club_ldf_borders_color') !== false) ? get_option('aftt4club_ldf_borders_color') : "#f0f0f0", 
-                              (get_option('aftt4club_ldf_nt_child_even_color') !== false) ? get_option('aftt4club_ldf_nt_child_even_color') : "#f0f0f0", 
-                              (get_option('aftt4club_ldf_nt_child_odd_color') !== false) ? get_option('aftt4club_ldf_nt_child_odd_color') : "#FFFFFF");
-            echo $ldf->printHTML(true);
-        }
-        else 
+            $ldf->setColorsMap(
+                  (get_option('aftt4club_ldf_header_color') !== false) ? get_option('aftt4club_ldf_header_color') : "#9cfff4", 
+                  (get_option('aftt4club_ldf_th_color') !== false) ? get_option('aftt4club_ldf_th_color') : "#9cfff4", 
+                  (get_option('aftt4club_ldf_borders_color') !== false) ? get_option('aftt4club_ldf_borders_color') : "#f0f0f0", 
+                  (get_option('aftt4club_ldf_nt_child_even_color') !== false) ? get_option('aftt4club_ldf_nt_child_even_color') : "#f0f0f0", 
+                  (get_option('aftt4club_ldf_nt_child_odd_color') !== false) ? get_option('aftt4club_ldf_nt_child_odd_color') : "#FFFFFF"
+            );
+            
+            echo $ldf->print();
+            
+        } else {
             echo "Veuillez entrer l'indice de votre club avant de consulter votre liste de forces.";
+        }
     }
     
     
     
-    // Handle club members challenge auto generation.
-    public function menu_html_members_challenge(){
+    /**
+     * Club challenge menu.
+     */
+    public function menu_html_members_challenge()
+    {
         echo "<h1>" . get_admin_page_title() . "</h1>";
         
         ?>
@@ -158,6 +207,8 @@ class Aftt4ClubConfig {
 	    echo $challenge->printHTML();
         
     }
+    
+    
 }
 
 new Aftt4ClubConfig();

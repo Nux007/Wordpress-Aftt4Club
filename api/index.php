@@ -1,3 +1,4 @@
+<?php
 /**
 Aftt4Club is a wordpress plugin that helps to manage you Table Tennis club. 
 Copyright (C) 2018  Nux007
@@ -17,37 +18,3 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Aftt4Club. If not, see <http://www.gnu.org/licenses/>.
 **/
-
-.aftt4club_config, fieldset {
-    background-color:#FFF;
-    max-width:500px;
-    padding:15px;	
-    
-    border:2px solid #0085ba;
-    -moz-border-radius:8px;
-    -webkit-border-radius:8px;	
-    border-radius:8px;		
-}
-
-.aftt4club_config, legend {
-    margin-bottom:0px;
-    margin: 0 20px 0 20px;
-    text-transform: capitalize;
-    font-weight: bold;
-    font-size: 1.3em;
-    color: #0085ba;
-}
-
-
-.aftt4club_config, label {
-	font-weight: bold;
-}
-
-#ldf_config{
-	margin-top: 50px;
-}
-
-.wp-picker-container .wp-color-result.button {
-	border: 1px solid #0085ba !important;
-	margin: 0 0 5px 5px;
-}

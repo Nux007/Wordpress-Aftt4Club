@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  Aftt4Club is a wordpress plugin that helps to manage you Table Tennis club.
  Copyright (C) 2018  Nux007
@@ -18,31 +18,3 @@
  You should have received a copy of the GNU General Public License
  along with Aftt4Club. If not, see <http://www.gnu.org/licenses/>.
  **/
-
-include_once "../api/Aftt.php";;
-include_once "../views/admin/challenge.php";
-
-class ChallengeTest {
-    
-    public function __construct($func)
-    {
-        
-        $challenge = new ClubChallenge("1068");
-        
-        switch ($func) {
-            
-            // Testing url handler.
-            case 0 :   echo $challenge->computePoints();
-            break;
-            
-            default: echo "No test defined\n";
-        }
-    }
-    
-    
-}
-
-
-new ChallengeTest(0);
-
-?>
