@@ -5,7 +5,9 @@ EN COURS DE DEVELOPPEMENT....
 
 ## Shortcodes disponibles
 [Liste\_de\_forces] => Pour afficher votre liste de forces où bon vous semble.
+
 [Divisions\_classements\_resultats] => Pour afficher le tableau de classement de vos divisions ainsi que les derniers résultats connus.
+
 [Challenge] => Pour afficher le challenge de votre club sur une page au choix.
 
 ## Administration 
