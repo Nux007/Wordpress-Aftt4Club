@@ -78,4 +78,14 @@ class TabTApiCommon
     }
     
     
+    /**
+     * Fetch current season parameter for requests
+     * @return string
+     */
+    public function getSeasonParam()
+    {
+        $Response = $this->getApi()->GetSeasons(array("Credentials" => $this->credentials));
+        return $Response->CurrentSeason;
+    }
+    
 }

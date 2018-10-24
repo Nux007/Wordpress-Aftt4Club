@@ -1,0 +1,365 @@
+/**
+* Aftt4Club is a wordpress plugin that helps to manage you Table Tennis club. 
+* Copyright (C) 2018  Nux007
+*    
+* This file is part of Aftt4Club wordpress plugin.
+*    
+* Aftt4Club is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*    
+* Aftt4Club is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*    
+* You should have received a copy of the GNU General Public License
+* along with Aftt4Club. If not, see <http://www.gnu.org/licenses/>.
+**/
+
+/**
+* Shortcodes specifics.
+*/
+#weekname {
+	text-align: center;
+    padding-bottom: 20px;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+
+/**
+* Challenge
+*/
+
+.two_digits {
+    width: 8%;
+}
+
+.four_digits {
+    width: 10%;
+}
+
+.wide_text {
+    width: 28%; 
+    text-align: left;
+}
+
+.small_text {
+    width: 12%;
+}
+
+.green {
+    background-color: #00b050;
+    text-align: center;
+}
+
+.medium {
+    height: 30px;
+}
+
+.very_small {
+    width: 10px;
+    height: 30px;
+    border-spacing: 0;
+    border: 2px solid;	
+}
+
+.cgreen {
+	color: green;
+	font-weight: bolder;
+}
+
+.cred {
+	color: red;
+	font-weight: bolder;
+}
+
+
+#challenge_header {
+    width: 100%;
+    height:38px;
+    font-size: 16px;
+    color: #79aeaa;
+    font-weight: bold;
+    font-family: "Arial";
+}
+
+
+#challenge_footer {
+    color: #79aeaa;
+    font-family: "Arial";
+    display: inline-block;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+#challenge_footer img {
+    height: 38px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#left {
+    display: inline-block;
+    float: left;
+    height: 100%;
+    width: 35%;
+    background-color: #ffc000;
+    margin-bottom: 2.5%;
+    text-align: center;
+    border: 1px solid;
+    padding-top: 8px;
+}
+
+
+#cup {
+    float: left;
+    height: 38px;
+    width: 8%;
+}
+
+#cup > img {
+    height: 100%;
+    width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 8px;
+}
+
+
+#right {
+    display: inline-block;
+    float: right;
+    height: 100%;
+    width: 56%;
+    background-color: #ffc000;
+    text-align: center;
+    border: 1px solid;
+    padding-top: 8px;
+}  
+
+
+.unbeaten {
+	height: 20px;
+}
+  
+/**
+* Divisions results and ranking
+*/
+
+.div_result {
+    border-spacing: 0;
+    margin-left:auto; 
+    margin-right:auto;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.div_result > .rowtitle {
+    font-weight: bold;
+}
+
+
+.div_result thead {
+    font-weight: bold;
+    font-style: italic;
+    margin: 8px;
+}
+
+
+.div_result table {
+    border-collapse: collapse;
+    width: 670px;
+}
+
+.div_result table,td {
+    text-align: center;
+}
+
+
+.div_result th, td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+#div_result_header p {
+    text-align: center;
+    padding-top: 9px;
+}
+
+.div_result > .number {
+    width: 10%;
+}
+
+#division_name {
+    text-align: center !important;
+    
+    
+    
+/**
+* Global.
+*/
+#wrap {
+    width: 50% !important;
+    height: 980 px !important;
+    float: left;
+    padding-left: 30px;
+}
+
+#weekname {
+    text-align: left;
+    padding: 12px 0 0 32px;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+
+.wp-picker-container .wp-color-result.button {
+    border: 1px solid #0085ba !important;
+    margin: 0 0 5px 5px;
+}
+
+
+.button, .button-secondary {
+    color: #555;
+    border-color: #cccccc;
+    background: #f7f7f7;
+    -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
+    box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
+    vertical-align: top;
+}
+
+
+/**
+* Listes de forces.
+*/
+.aftt_ldf {
+    border-spacing: 0;
+    margin-left:auto; 
+    margin-right:auto;
+    width: 100%;
+    text-align: center;
+}
+
+
+.aftt_ldf thead {
+    font-weight: bold;
+    font-style: italic;
+    margin: 8px;
+    text-align: center;
+}
+
+
+.aftt_ldf table {
+    border-collapse: collapse;
+    width: 670px;
+}
+
+.aftt_ldf table,td {
+    text-align: center;
+}
+
+
+.aftt_ldf th, td {
+    vertical-align: middle;
+    align: center !important;
+}
+
+
+.aftt_ldf .rowtitle {
+    font-weight:bold;
+}
+
+
+#ldf_header {
+    width: 100%;
+    height: 78px;
+    text-align: center;
+    margin: 16px 0 34px 0;
+}
+
+#ldf_header p {
+    text-align: center;
+    padding-top: 11px;
+}
+
+
+/* w3.16 - h1.96*/
+#ordre, #index {
+    width: 10%;
+    height: 30px;
+}
+
+#nom, #prenom {
+    width: 30%;
+    height: 30px;
+}
+
+#affiliation {
+    width: 12%;
+    height: 30px;
+}
+
+#classement {
+    width: 8%;
+    height: 30px;
+}
+
+/**
+* Divisions rankings.
+*/
+
+.div_result {
+    border-spacing: 0;
+    margin-left:auto; 
+    margin-right:auto;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.div_result, .rowtitle {
+    font-weight: bold;
+}
+
+
+.div_result thead {
+    font-weight: bold;
+    font-style: italic;
+    margin: 8px;
+}
+
+
+.div_result table {
+    border-collapse: collapse;
+    width: 670px;
+}
+
+.div_result table,td {
+    text-align: center;
+}
+
+
+.div_result th, td {
+    vertical-align: middle;
+    align: center;
+}
+
+#div_result_header p {
+    text-align: center;
+    padding-top: 9px;
+}
+
+.div_result > .number {
+    width: 10%;
+}
+
+#division_name {
+    text-align: center !important;
+}
+    
+}

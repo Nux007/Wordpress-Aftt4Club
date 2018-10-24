@@ -19,7 +19,7 @@
 * along with Aftt4Club. If not, see <http://www.gnu.org/licenses/>.
 **/
 
-class AfttMember 
+class Member 
 {
     
     private $_position;

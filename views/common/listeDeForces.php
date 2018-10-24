@@ -32,12 +32,9 @@
  * @copyright  2018
  * @since      Class available since Release 0.0.1
  */
-class ListeDeForces 
+class ListeDeForces extends ColorMap
 {
-    
-    public $colorsMap = array("header" => "#9cfff4", "th" => "#9cfff4", "borders" => "#f0f0f0", "even" => "#f0f0f0", "odd" => "#FFFFFF");
     private $_Club;
-    
     
     /**
      * ListeDeForces common view constructor.
@@ -65,35 +62,14 @@ class ListeDeForces
     
     
     /**
-     * Sets the color maps for html and pdf generation.
-     * @param string $head
-     * @param string $th
-     * @param string $border
-     * @param string $even
-     * @param string $odd
-     */
-    public function setColorsMap($head, $th=null, $border=null, $even=null, $odd=null)
-    {
-        if(is_array($head)) {
-            $this->colorsMap = $head;
-        } else {
-            $this->colorsMap = array("header" => $head, "th" => $th, "borders" => $border, "even" => $even, "odd" => $odd);
-        }
-    }
-    
-    
-    /**
      * Print the "Liste de Force" contents as HTML.
      * @param boolean $headers display the header or not.
      */
     protected function printHTML($headers=true)
-    {
-        // TODO ajouter les différentes catégories de listes de forces + les intégrer et gérer les changements...
-        // Colors configuration
-        
-        if(file_exists("../css/admin/listedeforces_1.css")) {
+    {   
+        if(file_exists("../css/shortcodes.css")) {
             // Does not exists outside tests context, so, using this sall hack for tests purpose !
-            echo '<link rel="stylesheet" type="text/css" href="../css/admin/listedeforces_1.css" media="screen" />';
+            echo '<link rel="stylesheet" type="text/css" href="../css/shortcodes.css" media="screen" />';
         }
         
         if($headers) {
@@ -102,7 +78,7 @@ class ListeDeForces
         }
         ?>
         
-        <div class="wrap">
+        <div class="wrap"  style="text-align: center;">
             <div class="wrap" id="wrap">
                 <?php 
                 if($headers) {
@@ -116,18 +92,18 @@ class ListeDeForces
                 <?php
                 }
                 ?>
-                <table class="aftt_ldf" id="ldf" style="border: 1px solid <?php echo $this->colorsMap["borders"]; ?>;">
+                <table class="aftt_ldf" id="ldf" style="border: 1px solid <?php echo $this->colorsMap["borders"]; ?>;width:100%; border-spacing: 0;">
                   <thead>
                   
-                  <?php $border = "background-color: " . $this->colorsMap["th"] . ";"; ?>
+                  <?php $border = "background-color: " . $this->colorsMap["th"] . ";text-align: center;"; ?>
                   
                     <tr class="rowtitle" style="<?php echo $border; ?>">
-                      <th id='ordre' scope="col" style="<?php echo $border; ?>">Ordre</th>
-                      <th id='index' scope="col" style="<?php echo $border; ?>">Index</th>
-                      <th id='affiliation' scope="col" style="<?php echo $border; ?>">Affiliation</th>
-                      <th id='nom' scope="col" style="<?php echo $border; ?>">Nom</th>
-                      <th id='prenom' scope="col" style="<?php echo $border; ?>">Prenom</th>
-                      <th id='classement' scope="col" style="<?php echo $border; ?>">Cl.</th>
+                      <th id='ordre' scope="col" style="<?php echo $border; ?>"><?php _e("Order", "aftt4club") ?></th>
+                      <th id='index' scope="col" style="<?php echo $border; ?>"><?php _e("Index", "aftt4club") ?></th>
+                      <th id='affiliation' scope="col" style="<?php echo $border; ?>"><?php _e("Membership", "aftt4club") ?></th>
+                      <th id='nom' scope="col" style="<?php echo $border; ?>"><?php _e("Last Name", "aftt4club") ?></th>
+                      <th id='prenom' scope="col" style="<?php echo $border; ?>"><?php _e("First Name", "aftt4club") ?></th>
+                      <th id='classement' scope="col" style="<?php echo $border; ?>"><?php _e("Rk.", "aftt4club") ?></th>
                     </tr>
                   </thead>
                   <tbody>  
@@ -136,7 +112,7 @@ class ListeDeForces
         $style= "border: 1px solid " . $this->colorsMap["borders"] . ";";
         
         foreach($this->_Club->getMembers() as $Member) {
-            $fill = " background-color: " . (($Member->getPosition() %2) == 0 ? $this->colorsMap["even"] : $this->colorsMap["odd"]);
+            $fill = " background-color: " . (($Member->getPosition() %2) != 0 ? $this->colorsMap["even"] : $this->colorsMap["odd"]);
       
             echo "<tr style='". $style . $fill . "'>";
             echo "<td id='ordre' style='". $style . $fill . "'>".$Member->getPosition() ."</td>";

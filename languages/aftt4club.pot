@@ -1,0 +1,228 @@
+/*
+ * Plugin Name: Aftt4Club
+ * Author: Nux007
+ * Text Domain: aftt4club
+ * Domain Path: /languages
+ */
+ 
+msgid  "Printing challenge"
+msgstr ""
+
+msgid "Challenge creation is fully automated, but, I recommend to wait until tuesday to print. Indeed, challenge depends on a manual Aftt validation"
+msgstr ""
+
+msgid  "Warning"
+msgstr ""
+
+msgid  ", only players that have played at least one game are listed here"
+msgstr ""
+
+msgid  "Print challenge"
+msgstr ""
+
+msgid  "Challenge preview"
+msgstr ""
+
+msgid  "Victories and losses"
+msgstr ""
+
+msgid  "Challenge exclusions"
+msgstr ""
+
+msgid  "You can exclude some players week results here."
+msgstr "" 
+
+msgid  "Example: you exclude XY player results for the week three, that will remove all player results and points for the targeted week."
+msgstr ""
+        
+msgid  "You must indicate your club index before accessing this content"
+msgstr ""
+
+msgid  "Week: "
+msgstr ""
+
+msgid  "Player"
+msgstr ""
+
+msgid  "Membership"
+msgstr ""
+
+msgid  "Week"
+msgstr ""
+
+msgid  "Actions"
+msgstr ""
+
+msgid  "PL"
+msgstr ""
+
+msgid  "Rank"
+msgstr ""
+
+msgid  "Vict"
+msgstr ""
+
+msgid  "Lss"
+msgstr ""
+
+msgid  "Played"
+msgstr ""
+
+msgid  "PTS"
+msgstr ""
+
+msgid  "Only players that have played at least one game are listed here."
+msgstr ""
+
+msgid  "Players that won all thier games this week."
+msgstr ""
+
+msgid  "Players that wan all their sets this week."
+msgstr ""
+
+msgid  "LDF Printing"
+msgstr ""
+
+msgid  "If you print the plugin LDF version, it will automaticaly adapted to an A4 sheet format"
+msgstr ""
+
+msgid  "Print this version"
+msgstr ""
+
+msgid  "Print Aftt version"
+msgstr ""
+
+msgid  "Up to date LDF"
+msgstr ""
+
+msgid  "Print ranking"
+msgstr ""
+
+msgid  "That's better if you wait until tuesday before printing rankings."
+msgstr ""
+
+msgid  "Print"
+msgstr ""
+
+msgid  "Last known rankings"
+msgstr ""
+
+msgid  "Excluded from ranking"
+msgstr ""
+
+msgid  "You can exclude the division ranking of your choise here, for exemple, if a division was forfeited."
+msgstr ""
+
+msgid  "Division Id"
+msgstr ""
+
+msgid  "Division"
+msgstr ""
+
+msgid  "You must provide your club indice before accessing this contents !"
+msgstr ""
+
+msgid  "Order"
+msgstr ""
+
+msgid  "Index"
+msgstr ""
+
+msgid  "Last Name"
+msgstr ""
+
+msgid  "First Name"
+msgstr ""
+
+msgid  "Rk."
+msgstr ""
+
+msgid  "Home"
+msgstr ""
+
+msgid  "Away"
+msgstr ""
+
+msgid  "Score"
+msgstr ""
+
+msgid  "Place"
+msgstr ""
+
+msgid  "Team"
+msgstr ""
+
+msgid  "Won"
+msgstr ""
+
+msgid  "Lost"
+msgstr ""
+
+msgid  "Nul"
+msgstr ""
+
+msgid  "Points"
+msgstr ""
+
+msgid  "Club selection"
+msgstr ""
+
+msgid  "Login (http://results.aftt.be)"
+msgstr ""
+
+msgid  "Password (http://results.aftt.be)"
+msgstr ""
+
+msgid  "Club index"
+msgstr ""
+
+msgid  "Documents colors configuration"
+msgstr ""
+
+msgid  "Documents title color"
+msgstr ""
+
+msgid  "Columns title color"
+msgstr ""
+
+msgid  "Borders color"
+msgstr ""
+
+msgid  "Odd lines background color"
+msgstr ""
+
+msgid  "Even lines background color"
+msgstr ""
+
+msgid  "Fill in your club index before accessing your LDF"
+msgstr ""
+
+msgid  "Fill in your club index before accessing your divisions rankings"
+msgstr ""
+
+msgid  "Fill in your club index before accessing your club members challenge"
+msgstr ""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

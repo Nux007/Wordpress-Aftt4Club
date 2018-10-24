@@ -169,7 +169,7 @@ class AfttClub extends TabTApiCommon
     
     /**
      * Return the club members as a list of AfttMember.
-     * @return AfttMember[]|boolean
+     * @return Member[]|boolean
      */
     public function getMembers()
     {
@@ -179,7 +179,7 @@ class AfttClub extends TabTApiCommon
         if($Response->MemberCount > 0) {
             
             foreach($Response->MemberEntries as $MemberEntry) {
-                $members[] = new AfttMember(
+                $members[] = new Member(
                                  $MemberEntry->Position, $MemberEntry->RankingIndex, $MemberEntry->UniqueIndex,
                                  $MemberEntry->LastName, $MemberEntry->FirstName, $MemberEntry->Ranking
                              );
@@ -189,6 +189,46 @@ class AfttClub extends TabTApiCommon
         }
         
         return false;
+    }
+    
+    
+    
+    /**
+     * Return a particular member.
+     * @param int $id_member
+     * @return Member[]|boolean|boolean
+     */
+    public function getMember($id_member) 
+    {
+        $members = $this->getMembers();
+        foreach($members as $member) {
+            if($member->getAffiliationNumber() == $id_member)
+                return $member;
+        }
+        return false;
+    }
+    
+    
+    
+    /**
+     * Return available divisions.
+     * @return Division[]
+     */
+    public function getDivisions($exclusions=array())
+    {
+        $divisions = new AfttDivisions($this->_index, $exclusions, $this->credentials["Account"], $this->credentials["Password"]);
+        return $divisions->getDivisions();
+    }
+    
+    
+    
+    /**
+     * Return the automated challenge.
+     * @return ClubMembersChallenge
+     */
+    public function getChallenge($exclusions) 
+    {
+        return new ClubMembersChallenge($this->getDivisions($exclusions), $this, $this->credentials["Account"], $this->credentials["Password"], $exclusions);
     }
     
     

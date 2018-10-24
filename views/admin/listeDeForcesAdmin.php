@@ -23,9 +23,15 @@
 if(file_exists("../../api/Aftt.php")) {
     include_once "../../api/Aftt.php";
     include_once "../../api/AfttClubs.php";
-    include_once "../../api/AfttMembers.php";
-    include_once "../common/listeDeForces.php";
+    include_once "../../api/AfttDivisions";
+    
     include_once "../../lib/pdf/fpdf.php";
+    include_once "../../lib/helpers/Utils.php";
+    include_once "../../lib/helpers/Members.php";
+    include_once "../../lib/helpers/Divisions.php";
+    
+    include_once "../common/listeDeForces.php";
+    
 }
 
 
@@ -58,30 +64,26 @@ class ListeDeForcesAdmin extends ListeDeForces
      */
     public function print()
     {
-        $this->printHTML($headers=true);
-        
-        // Display custo ldf PDF link.
         $target = plugin_dir_url(__FILE__) . "listeDeForcesAdmin.php";
         $cmap = base64_encode(htmlspecialchars(serialize($this->colorsMap)));
-        ?>
-        <div class="ldf_actions">
-            <fieldset class="ldf_cfg_fieldset">
-                <legend>Impression de la liste de forces</legend>
-                <span>Si vous imprimez la liste de forces version plugin (premier bouton), les proportions seront automatiquement ajustées au format papier A4,
-                      et la boîte de dialogue d'impression s'ouvrira toute seule !</span><br /><br />
-                <a target="_blank" 
-                   href="<?php echo $target; ?>?cmap=<?php echo $cmap ?>&print_plugin_pdf=true&club_index=<?php echo $this->getClub()->getIndex() ?>" 
-                   id="print_ldf_plugin_ver" class="button-secondary" style="margin-right: 12px;">
-                   Imprimer cette version
-                </a>
-                
-                <a target="_blank" href="<?php echo $this->getClub()->getAfttLdfLink(); ?>" class="button-secondary">
-                   Imprimer version Aftt
-                </a>
-            
-          </fieldset>
+        
+        ?><div id="admin_wrap" style="width:70%" >
+        <!-- Print buttons. -->
+        <h2><?php _e("LDF Printing", "aftt4club") ?></h2>
+        <hr>
+        <span><?php _e("If you print the plugin LDF version, it will automaticaly adapted to an A4 sheet format", "aftt4club") ?></span>
+        <div style="margin-top: 1%; margin-bottom:1%">
+            <a target="_blank" href="<?php echo $target; ?>?cmap=<?php echo $cmap ?>&print_plugin_pdf=true&club_index=<?php echo $this->getClub()->getIndex() ?>"
+               class="button-primary" style="margin-right: 12px;"><?php _e("Print this version", "aftt4club")?></a>
+    
+            <a target="_blank" href="<?php echo $this->getClub()->getAfttLdfLink(); ?>" class="button-primary"><?php _e("Print Aftt version", "aftt4club") ?></a>
         </div>
-        <?php 
+        <br />
+        <!--  Printing LDF -->
+        <h2><?php _e("Up to date LDF", "aftt4club") ?></h2><hr>
+        <?php
+        $this->printHTML(true);
+        ?></div><?php 
     }
     
     
@@ -100,8 +102,6 @@ class ListeDeForcesAdmin extends ListeDeForces
         list($header_r, $header_g, $header_b) = sscanf($this->colorsMap["header"], "#%02x%02x%02x");
         list($border_r, $border_g, $border_b) = sscanf($this->colorsMap["borders"], "#%02x%02x%02x");
         list($th_r, $th_g, $th_b) = sscanf($this->colorsMap["th"], "#%02x%02x%02x");
-        list($even_r, $even_g, $even_b) = sscanf($this->colorsMap["even"], "#%02x%02x%02x");
-        list($odd_r, $odd_g, $odd_b) = sscanf($this->colorsMap["odd"], "#%02x%02x%02x");
         
         $pdf->SetDrawColor( $border_r, $border_g, $border_b );
         
@@ -134,9 +134,7 @@ class ListeDeForcesAdmin extends ListeDeForces
         $pdf->Ln( 6 );
         
         // Create the table data rows
-        $fill = false;
         $pdf->SetFont( 'Arial', '', 10 );
-        $i = 1;
         
         foreach ( $this->getClub()->getMembers() as $Member ) {
             // Create the data cells
