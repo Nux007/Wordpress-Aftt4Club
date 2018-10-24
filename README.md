@@ -1,7 +1,7 @@
 # Wordpress-Aftt4Club
 Un plugin wordpress vous aidant à administrer votre club via l'administration wp.
 
-EN COURS DE DEVELOPPEMENT....
+V 0.0.1 RC1
 
 ## Shortcodes disponibles
 [Liste\_de\_forces] => Pour afficher votre liste de forces où bon vous semble.
