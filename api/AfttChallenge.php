@@ -33,7 +33,7 @@
 Class ClubMembersChallenge extends TabTApiCommon
 {
     private $_divisions;    
-    private $_matches;
+    private $_matches = null;
     private $_week;
     private $_classements = array(
                               "NC" => 1, "E6" => 2, "E4" => 3, "E2" => 4, "E0" => 5, "D6" => 6, "D4" => 7, "D2" => 8, "D0" => 9,
@@ -55,29 +55,33 @@ Class ClubMembersChallenge extends TabTApiCommon
         $this->_club = $club;
         $this->_week = 0;
         $this->_divisions = $club_divisions;
+        $this->_matches = null;
         $this->_matches = $this->_getMatches();
         
         foreach($exclusions as $exclusion) {
-            if(isset($this->_matches[$exclusion["unique_id"][str_pad($exclusion["week"], 2, '0', STR_PAD_LEFT)]]))
-                unset($this->_matches[$exclusion["unique_id"][str_pad($exclusion["week"], 2, '0', STR_PAD_LEFT)]]);
+            echo "Excluded: " . $exclusion["unique_id"] . " Week: " . $exclusion["week"] . " Padded week: ".str_pad($exclusion["week"], 2, '0', STR_PAD_LEFT)."<br />";
             
-            
+            if(null !== $this->_matches[$exclusion["unique_id"]][str_pad($exclusion["week"], 2, '0', STR_PAD_LEFT)]) {
+                unset($this->_matches[$exclusion["unique_id"]][str_pad($exclusion["week"], 2, '0', STR_PAD_LEFT)]);
+            }
+            /*
             foreach($this->_matches as $id => $match) {
                 
-                if(intval($id) == intval($exclusion["unique_id"])){
+                if(intval($id) === intval($exclusion["unique_id"])){
                     
-                    foreach($this->_matches[$id] as $week => &$week_data) {
+                    foreach($this->_matches[$id] as $week => $week_data) {
                         
-                        if(intval($week) == intval($exclusion["week"])) {
-                            $week_data["won"] = null;
-                            $week_data["lost"] = null;
+                        if(intval($week) === intval($exclusion["week"])) {
+                            $this->_matches[$id][$week]["won"] = null;
+                            $this->_matches[$id][$week]["lost"] = null;
                         }
                     }
                     
                     
                 }
             }
-            
+           
+            */
         }
     }
     
@@ -132,7 +136,8 @@ Class ClubMembersChallenge extends TabTApiCommon
      */
     public function isUnbeatenGames($user_unique_id, $target_week) 
     {
-        return ( count($this->_matches[$user_unique_id][$target_week]["won"] ) == 4 ) ? true : false;
+        $won = $this->_matches[$user_unique_id][$target_week]["won"];
+        return ( count( $won ) == 4 ) ? true : false;
     }
     
     
@@ -235,7 +240,9 @@ Class ClubMembersChallenge extends TabTApiCommon
                 if($mDetails->DetailsCreated == "1"){
                 
                     $home = ($TeamMatchEntry->HomeClub == $this->_club->getIndex()) ? true : false;
+                    
                     $forfeited = ( $TeamMatchEntry->IsHomeForfeited == "1" || $TeamMatchEntry->IsAwayForfeited =="1" ) ? true : false;
+                    
                     $match_sheet = $mDetails->IndividualMatchResults;
                     
                     
@@ -277,6 +284,11 @@ Class ClubMembersChallenge extends TabTApiCommon
                                 if(intval($match->AwaySetCount) > 0)
                                     $results[$match->HomePlayerUniqueIndex][$TeamMatchEntry->WeekName]["lost_sets"] = true;
                             }
+                            elseif(isset($match->IsAwayForfeited)) {
+                                $setted = isset($results[$match->HomePlayerUniqueIndex][$TeamMatchEntry->WeekName]["won"]);
+                                if(!$setted || array_search("WO", $results[$match->HomePlayerUniqueIndex][$TeamMatchEntry->WeekName]["won"]) === false)
+                                    $results[$match->HomePlayerUniqueIndex][$TeamMatchEntry->WeekName]["won"][] = "WO";
+                            }
                             // Lost game.
                             elseif(isset($match->HomeSetCount))
                                 $results[$match->HomePlayerUniqueIndex][$TeamMatchEntry->WeekName]["lost"][] = $away_ranking;                            
@@ -296,6 +308,11 @@ Class ClubMembersChallenge extends TabTApiCommon
                                 $results[$match->AwayPlayerUniqueIndex][$TeamMatchEntry->WeekName]["won"][] = $home_ranking;
                                 if(intval($match->HomeSetCount) > 0)
                                     $results[$match->AwayPlayerUniqueIndex][$TeamMatchEntry->WeekName]["lost_sets"] = true;
+                            }
+                            elseif(isset($match->IsHomeForfeited)) {
+                                $setted = isset($results[$match->AwayPlayerUniqueIndex][$TeamMatchEntry->WeekName]["won"]);
+                                if(!$setted || array_search("WO", $results[$match->AwayPlayerUniqueIndex][$TeamMatchEntry->WeekName]["won"]) === false)
+                                    $results[$match->AwayPlayerUniqueIndex][$TeamMatchEntry->WeekName]["won"][] = "WO";
                             }
                             // Lost game.
                             elseif(isset($match->AwaySetCount))
