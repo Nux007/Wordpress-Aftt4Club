@@ -59,7 +59,7 @@ Class ClubMembersChallenge extends TabTApiCommon
         $this->_matches = $this->_getMatches();
         
         foreach($exclusions as $exclusion) {
-            echo "Excluded: " . $exclusion["unique_id"] . " Week: " . $exclusion["week"] . " Padded week: ".str_pad($exclusion["week"], 2, '0', STR_PAD_LEFT)."<br />";
+            //echo "Excluded: " . $exclusion["unique_id"] . " Week: " . $exclusion["week"] . " Padded week: ".str_pad($exclusion["week"], 2, '0', STR_PAD_LEFT)."<br />";
             
             if(null !== $this->_matches[$exclusion["unique_id"]][str_pad($exclusion["week"], 2, '0', STR_PAD_LEFT)]) {
                 unset($this->_matches[$exclusion["unique_id"]][str_pad($exclusion["week"], 2, '0', STR_PAD_LEFT)]);
@@ -235,16 +235,39 @@ Class ClubMembersChallenge extends TabTApiCommon
             foreach($Response->TeamMatchesEntries as $TeamMatchEntry) {
                 
                 $mDetails = $TeamMatchEntry->MatchDetails;
+
                 $home = false;
+                
                 
                 if($mDetails->DetailsCreated == "1"){
                 
                     $home = ($TeamMatchEntry->HomeClub == $this->_club->getIndex()) ? true : false;
-                    
                     $forfeited = ( $TeamMatchEntry->IsHomeForfeited == "1" || $TeamMatchEntry->IsAwayForfeited =="1" ) ? true : false;
                     
                     $match_sheet = $mDetails->IndividualMatchResults;
                     
+                    if($forfeited) {
+                       // echo "Week: " . $TeamMatchEntry->WeekName ." Home Team: " . $TeamMatchEntry->HomeTeam . "<strong> Players state: </strong></br>";
+                        
+                        $home_forfeited = 0;
+                        $away_forfeited = 0;
+                        
+                        foreach($match_sheet as $match) {
+                            
+                            if(isset($match->IsHomeForfeited)) {
+                                $home_forfeited++;    
+                            }
+                            
+                            if(isset($match->IsAwayForfeited)) {
+                                $away_forfeited++;
+                            }
+                        }     
+                        
+                        if(! ($home_forfeited >= 9 || $away_forfeited >= 9) ) {
+                             $forfeited = false;
+                        }
+                        
+                    }
                     
                     if($home && !$forfeited) {
                         foreach($mDetails->AwayPlayers->Players as $player) {
@@ -265,7 +288,7 @@ Class ClubMembersChallenge extends TabTApiCommon
                         }
                     }
                             
-                                   
+                                         
                     // Getting individuals matches results.
                     foreach($match_sheet as $match){
                         /* Playing at home */
@@ -317,11 +340,14 @@ Class ClubMembersChallenge extends TabTApiCommon
                             // Lost game.
                             elseif(isset($match->AwaySetCount))
                                 $results[$match->AwayPlayerUniqueIndex][$TeamMatchEntry->WeekName]["lost"][] = $home_ranking;
+                            
                         }
+                        
                         
                     }
                 
                 }
+            
             }
         }
         return $results;
