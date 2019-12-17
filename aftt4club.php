@@ -92,7 +92,7 @@ function shortcode_show_challenge() {
     wp_enqueue_style( 'aftt4club-style', plugin_dir_url( __FILE__ ).'css/shortcodes.css', array(), false, false);
     include_once plugin_dir_path(__FILE__) . "./views/front/challengeFront.php";
     $challenge = new ClubMembersChallengeFront(get_option("aftt4club_index"), get_option("aftt4club_login"),
-                                               get_option("aftt4club_password"), get_option("aftt4club_challenge_exclusions")
+                                               get_option("aftt4club_password"), get_option("aftt4club_challenge_exclusions", array())
                                                );
     $challenge->print();
 }
@@ -103,7 +103,7 @@ function shortcode_show_divisions_ranking_and_results()
     wp_register_style("aftt4club-style", plugin_dir_url( __FILE__ ).'css/shortcodes.css');
     wp_enqueue_style( 'aftt4club-style', plugin_dir_url( __FILE__ ).'css/shortcodes.css', array(), false, false);
     include_once plugin_dir_path(__FILE__) . "views/front/rankingFront.php";
-    $ranking = new RankingFront(get_option("aftt4club_index"), get_option("aftt4club_divisions_exclusions"));
+    $ranking = new RankingFront(get_option("aftt4club_index"), get_option("aftt4club_divisions_exclusions", array()));
     $ranking->print();
 }
 

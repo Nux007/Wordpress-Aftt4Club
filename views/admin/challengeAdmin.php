@@ -62,7 +62,10 @@ class ClubMembersChallengeAdmin extends ChallengeView
         $this->_login = $login;
         $this->_password = $password;
         $this->_exceptions = $exclusions;
-        parent::__construct($club_index, false, $login, $password, $exclusions);
+        if($this->_exceptions === "null") {
+            $this->_exceptions = null;
+        }
+        parent::__construct($club_index, false, $login, $password, $this->_exceptions);
     }
     
     
@@ -266,7 +269,7 @@ class ClubMembersChallengeAdmin extends ChallengeView
                   
                   
                   <?php
-                  if(count($exclusions) > 0) {
+                  if($this->_exceptions !== null && count($this->_exceptions) > 0) {
                       ?>
                       <table class="aftt_ldf" style="width: 68%;">
                           <tr class="rowtitle medium">

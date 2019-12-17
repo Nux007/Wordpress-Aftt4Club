@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 /**
 * Aftt4Club is a wordpress plugin that helps to manage you Table Tennis club. 

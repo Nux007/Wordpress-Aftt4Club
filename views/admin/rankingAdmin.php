@@ -52,6 +52,9 @@ class RankingAdmin extends DivisionsRankingView
      */
     public function __construct($club_index, $exclusions)
     {
+        if($exclusions === "null") {
+            $exclusions = array();
+        }
         parent::__construct($club_index, $exclusions);
     }
     
@@ -92,6 +95,9 @@ class RankingAdmin extends DivisionsRankingView
      */
     public function printExclusionsForm($exclusions)
     {
+        if($exclusions === "null") {
+            $exclusions = array();
+        }
         ?>
         <div style="width: 50%; margin-bottom: 10px;">
         <h2><?php _e("Excluded from ranking", "aftt4club") ?></h2><hr>
@@ -111,34 +117,32 @@ class RankingAdmin extends DivisionsRankingView
                       
                       <?php submit_button(); ?>
                   </form>
-                  
-                  
+
                   <?php
-                  if(count($exclusions) > 0) {
+                  if ( count( $exclusions ) > 0 ) {
                       ?>
                       <table class="aftt_ldf" style="width: 68%;">
                           <tr class="rowtitle medium">
-                              <th class="wide_text green" scope="col"><?php _e("Division Id", "aftt4club") ?></th>
-                              <th class="wide_text green" scope="col"><?php _e("Division", "aftt4club")?></th>
+                              <th class="wide_text green" scope="col"><?php _e( "Division Id", "aftt4club" ) ?></th>
+                              <th class="wide_text green" scope="col"><?php _e( "Division", "aftt4club" ) ?></th>
                           </tr>
-                      
-                      <?php 
-                      foreach($exclusions as $excluded) {
-                          echo "<tr>";
-                          echo "<td><strong>Exclusion: </strong>".$excluded["division_name"] ."</td>";
-                          echo '<td><form method="post" action="" name="remove-'.$excluded["division_id"].'">
-                                      <input type="submit" value="Supprimer" name="delete_exclusion" id="delete_exclusion" />
-                                      <input type="hidden" name="division_id" id="division_id" value="'.$excluded["division_id"].'" />
-                                      <input type="hidden" name="division_name" id="division_name" value="'.$excluded["division_name"].'" />
-                                    </form></td>';
-                          echo "</tr>";
-                      }
-                      
-                      ?>
+
+                          <?php
+                          foreach ( $exclusions as $excluded ) {
+                              echo "<tr>";
+                              echo "<td><strong>Exclusion: </strong>" . $excluded["division_name"] . "</td>";
+                              echo '<td><form method="post" action="" name="remove-' . $excluded["division_id"] . '">
+                                  <input type="submit" value="Supprimer" name="delete_exclusion" id="delete_exclusion" />
+                                  <input type="hidden" name="division_id" id="division_id" value="' . $excluded["division_id"] . '" />
+                                  <input type="hidden" name="division_name" id="division_name" value="' . $excluded["division_name"] . '" />
+                                </form></td>';
+                              echo "</tr>";
+                          }
+
+                          ?>
                       </table>
-                      
-                      <?php 
-                      
+
+                      <?php
                   }
               }
               else { ?>

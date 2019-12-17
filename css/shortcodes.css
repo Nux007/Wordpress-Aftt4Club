@@ -198,15 +198,14 @@
 
 #division_name {
     text-align: center !important;
-    
-    
+}
     
 /**
 * Global.
 */
 #wrap {
-    width: 50% !important;
-    height: 980 px !important;
+    width: 100% !important;
+    height: auto !important;
     float: left;
     padding-left: 30px;
 }
@@ -360,6 +359,4 @@
 
 #division_name {
     text-align: center !important;
-}
-    
 }
