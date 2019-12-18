@@ -66,7 +66,9 @@ class Aftt4ClubConfig
             (get_option('aftt4club_ldf_th_color') !== false) ? get_option('aftt4club_ldf_th_color') : "#9cfff4",
             (get_option('aftt4club_ldf_borders_color') !== false) ? get_option('aftt4club_ldf_borders_color') : "#f0f0f0",
             (get_option('aftt4club_ldf_nt_child_even_color') !== false) ? get_option('aftt4club_ldf_nt_child_even_color') : "#f0f0f0",
-            (get_option('aftt4club_ldf_nt_child_odd_color') !== false) ? get_option('aftt4club_ldf_nt_child_odd_color') : "#FFFFFF"
+            (get_option('aftt4club_ldf_nt_child_odd_color') !== false) ? get_option('aftt4club_ldf_nt_child_odd_color') : "#FFFFFF",
+	        (get_option('aftt4club_header_text_color') !== false) ? get_option('aftt4club_header_text_color') : "#FFFFFF",
+	        (get_option('aftt4club_thead_text_color') !== false) ? get_option('aftt4club_thead_text_color') : "#FFFFFF"
             );
 	}
 	
@@ -99,6 +101,8 @@ class Aftt4ClubConfig
 	    // "Liste de forces" colors scheme.
 	    register_setting('aftt4club_settings', 'aftt4club_ldf_header_color');
 	    register_setting('aftt4club_settings', 'aftt4club_ldf_th_color');
+		register_setting('aftt4club_settings', 'aftt4club_header_text_color');
+		register_setting('aftt4club_settings', 'aftt4club_thead_text_color');
 	    register_setting('aftt4club_settings', 'aftt4club_ldf_borders_color');
 	    register_setting('aftt4club_settings', 'aftt4club_ldf_nt_child_even_color');
 	    register_setting('aftt4club_settings', 'aftt4club_ldf_nt_child_odd_color');
@@ -170,6 +174,8 @@ class Aftt4ClubConfig
                     $borders_color = (get_option('aftt4club_ldf_borders_color') !== false) ? get_option('aftt4club_ldf_borders_color') : "#f0f0f0";
                     $nt_child_even_color = (get_option('aftt4club_ldf_nt_child_even_color') !== false) ? get_option('aftt4club_ldf_nt_child_even_color') : "#f0f0f0";
                     $nt_child_odd_color = (get_option('aftt4club_ldf_nt_child_odd_color') !== false) ? get_option('aftt4club_ldf_nt_child_odd_color') : "#FFFFFF";
+                    $header_text_color = (get_option('aftt4club_header_text_color') !== false) ? get_option('aftt4club_header_text_color') : "#FFFFFF";
+                    $thead_text_color = (get_option('aftt4club_thead_text_color') !== false) ? get_option('aftt4club_thead_text_color') : "#FFFFFF";
                     ?>
                     <tr>
                         <td><label for="aftt4club_ldf_header_color"><?php _e("Documents title color", "aftt4club") ?></label></td>
@@ -195,6 +201,16 @@ class Aftt4ClubConfig
                     <tr>
                         <td><label for="aftt4club_ldf_nt_child_odd_color"><?php _e("Even lines background color", "aftt4club") ?></label></td>
                         <td><input id="aftt4club_ldf_nt_child_odd_color" name="aftt4club_ldf_nt_child_odd_color" type="text" class="color-picker-field" value="<?php echo $nt_child_odd_color; ?>" /></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="aftt4club_header_text_color"><?php _e("Headers text color", "aftt4club") ?></label></td>
+                        <td><input id="aftt4club_header_text_color" name="aftt4club_header_text_color" type="text" class="color-picker-field" value="<?php echo $header_text_color ?>" /></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="aftt4club_thead_text_color"><?php _e("      Tablesheaderstextcolor", "aftt4club") ?></label></td>
+                        <td><input id="aftt4club_thead_text_color" name="aftt4club_thead_text_color" type="text" class="color-picker-field" value="<?php echo $thead_text_color ?>" /></td>
                     </tr>
                 </table>
                 

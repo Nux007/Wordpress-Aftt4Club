@@ -1,10 +1,3 @@
-/*
- * Plugin Name: Aftt4Club
- * Author: Nux007
- * Text Domain: aftt4club
- * Domain Path: /languages
- */
- 
 msgid  "Printing challenge"
 msgstr ""
 
@@ -203,26 +196,8 @@ msgstr ""
 msgid  "Fill in your club index before accessing your club members challenge"
 msgstr ""
 
+msgid  "Headers text color"
+msgstr ""
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+msgid  "        Tablesheaderstextcolor"
+msgstr ""

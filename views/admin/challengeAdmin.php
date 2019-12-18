@@ -62,7 +62,7 @@ class ClubMembersChallengeAdmin extends ChallengeView
         $this->_login = $login;
         $this->_password = $password;
         $this->_exceptions = $exclusions;
-        if($this->_exceptions === "null") {
+        if(is_string($this->_exceptions)) {
             $this->_exceptions = null;
         }
         parent::__construct($club_index, false, $login, $password, $this->_exceptions);

@@ -102,16 +102,20 @@ class DivisionsRankingView extends ColorMap
             $results = $this->_results[$divId];
         ?>
             <div class="wrap" id="wrap" style="margin-bottom: 60px;text-align: center;">
-                <div id="div_result_header" style="background-color: <?php echo $this->colorsMap["header"]; ?>; text-align: center;">
+                <div id="div_result_header" style="display: flex; justify-content: center; background-color: <?php echo $this->colorsMap["header"]; ?>; text-align: center;">
                     <p id='division_name'>
-                        <span style='font-size:26px; font-weight: bold;'><?php echo $ranking[0]->getDivisionName(); ?></span><br />
+                        <?php
+                        $headersColor = $this->colorsMap["textHeaders"];
+                        $thHeadersColor = $this->colorsMap["textThead"];
+                        ?>
+                        <span style='color:<?php echo $headersColor; ?>; font-size:26px; font-weight: bold;'><?php echo $ranking[0]->getDivisionName(); ?></span><br />
                     </p> 
                 </div>
                 
                 <!-- Last known results table -->
                 <table class="div_result" id="ldf" style="border: 1px solid <?php echo $this->colorsMap["borders"]; ?>;">
                   <thead>
-                    <tr class="rowtitle">
+                    <tr class="rowtitle" style="color: <?php echo $thHeadersColor; ?>">
                       <th class="team" scope="col"><?php _e("Home", "aftt4club") ?></th>
                       <th id="team" scope="col"><?php _e("Away", "aftt4club") ?></th>
                       <th class="number" scope="col"><?php _e("Score", "aftt4club") ?></th>
@@ -142,7 +146,7 @@ class DivisionsRankingView extends ColorMap
                 <!-- Global ranking table -->
                 <table class="div_result" id="ldf" style="border: 1px solid <?php echo $this->colorsMap["borders"]; ?>;">
                   <thead>                  
-                    <tr class="rowtitle">
+                    <tr class="rowtitle" style="color: <?php echo $thHeadersColor; ?>">
                       <th class="number" scope="col"><?php _e("Place", "aftt4club") ?></th>
                       <th id="team" scope="col"><?php _e("Team", "aftt4club") ?></th>
                       <th class="number" scope="col"><?php _e("Played", "aftt4club") ?></th>
@@ -180,8 +184,7 @@ class DivisionsRankingView extends ColorMap
         </div>
         <?php
     }  
-    
-    
+
     /**
      * Return the ranking list.
      * @return array
@@ -202,6 +205,5 @@ class DivisionsRankingView extends ColorMap
         return $this->_results;
     }
 }
-
 
 ?>

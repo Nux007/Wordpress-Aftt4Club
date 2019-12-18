@@ -9,229 +9,211 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr_FR\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-msgid  "Printing challenge"
+msgid "Printing challenge"
 msgstr "Impression du challenge"
 
 msgid "Challenge creation is fully automated, but, I recommend to wait until tuesday to print. Indeed, challenge depends on a manual Aftt validation"
-msgstr "La création du challenge est totalement automatisée, cependant, il est préférable d'attendre mardi matin avant impression car il dépends"
-"d'une validation manuelle du côté de l'Aftt."
+msgstr ""
+"La création du challenge est totalement automatisée, cependant, il est préférable d'attendre mardi matin avant impression car il dépends d'une validation manuelle du côté de "
+"l'Aftt."
 
-msgid  "Warning"
+msgid "Warning"
 msgstr "Attention"
 
-msgid  ", only players that have played at least one game are listed here"
+msgid ", only players that have played at least one game are listed here"
 msgstr ", seuls les joueurs ayant au moins participé à une rencontre sont référencés dans le challenge"
 
-msgid  "Print challenge"
+msgid "Print challenge"
 msgstr "Imprimer le challenge"
 
-msgid  "Challenge preview"
+msgid "Challenge preview"
 msgstr "Apperçu du challenge"
 
-msgid  "Victories and losses"
+msgid "Victories and losses"
 msgstr "Victoires et défaites"
 
-msgid  "Challenge exclusions"
+msgid "Challenge exclusions"
 msgstr "Exclusions du challenge"
 
-msgid  "You can exclude some players week results here."
-msgstr "Vous pouvez exclure ici les résultats de certains de vos joueurs pour une semaine spécifiée." 
+msgid "You can exclude some players week results here."
+msgstr "Vous pouvez exclure ici les résultats de certains de vos joueurs pour une semaine spécifiée."
 
-msgid  "Example: you exclude XY player results for the week three, that will remove all player results and points for the targeted week."
+msgid "Example: you exclude XY player results for the week three, that will remove all player results and points for the targeted week."
 msgstr "Exemple: vous excluez le résultat de la semaine 03 pour le joueur XY, ce qui annulera toutes ses rencontres et points pour la semaine choisie."
-        
-msgid  "You must indicate your club index before accessing this content"
+
+msgid "You must indicate your club index before accessing this content"
 msgstr "Vous devez renseigner l'indice de votre club ci dessus avant de pouvoir accéder à ce contenu"
 
-msgid  "Week: "
+msgid "Week: "
 msgstr "Semaine: "
 
-msgid  "Player"
+msgid "Player"
 msgstr "Joueur/Joueuse"
 
-msgid  "Membership"
+msgid "Membership"
 msgstr "Affiliation"
 
-msgid  "Week"
+msgid "Week"
 msgstr "Semaine"
 
-msgid  "Actions"
+msgid "Actions"
 msgstr "Actions"
 
-msgid  "PL"
+msgid "PL"
 msgstr "PL"
 
-msgid  "Rank"
+msgid "Rank"
 msgstr "Clst"
 
-msgid  "Vict"
+msgid "Vict"
 msgstr "Vict"
 
-msgid  "Lss"
+msgid "Lss"
 msgstr "Déf"
 
-msgid  "Played"
+msgid "Played"
 msgstr "Joué"
 
-msgid  "PTS"
+msgid "PTS"
 msgstr "PTS"
 
-msgid  "Only players that have played at least one game are listed here."
+msgid "Only players that have played at least one game are listed here."
 msgstr "Seuls les joueurs ayant participé à au moins un match sont repris dans le challenge."
 
-msgid  "Players that won all thier games this week."
+msgid "Players that won all thier games this week."
 msgstr "Joueurs ayant gagné tous leurs matchs ce week end."
 
-msgid  "Players that wan all their sets this week."
+msgid "Players that wan all their sets this week."
 msgstr "Joueurs n'ayant perdu aucun set ce week end."
 
-msgid  "LDF Printing"
+msgid "LDF Printing"
 msgstr "Impression de la liste de forces"
 
-msgid  "If you print the plugin LDF version, it will automaticaly adapted to an A4 sheet format"
+msgid "If you print the plugin LDF version, it will automaticaly adapted to an A4 sheet format"
 msgstr "Si vous imprimez la liste de forces version plugin, celle ci sera automatiquement ajustée au format papier A4, et la boite de dialogue d'impression s'ouvrira toute seule"
 
-msgid  "Print this version"
+msgid "Print this version"
 msgstr "Imprimer cette version"
 
-msgid  "Print Aftt version"
+msgid "Print Aftt version"
 msgstr "Imprimer version Aftt"
 
-msgid  "Up to date LDF"
+msgid "Up to date LDF"
 msgstr "Liste de forces à jour"
 
-msgid  "Print ranking"
+msgid "Print ranking"
 msgstr "Impression du classement"
 
-msgid  "That's better if you wait until tuesday before printing rankings."
+msgid "That's better if you wait until tuesday before printing rankings."
 msgstr "Il est préférable d'attendre mardi matin si vous souhaitez être à jour ! Le tableau de classement est automatiquement adapté à une vue sur format A4."
 
-msgid  "Print"
+msgid "Print"
 msgstr "Imprimer"
 
-msgid  "Last known rankings"
+msgid "Last known rankings"
 msgstr "Dernier classement connu de vos divisions"
 
-msgid  "Excluded from ranking"
+msgid "Excluded from ranking"
 msgstr "Exclusions du classement"
 
-msgid  "You can exclude the division ranking of your choise here, for exemple, if a division was forfeited."
+msgid "You can exclude the division ranking of your choise here, for exemple, if a division was forfeited."
 msgstr "Vous pouvez exclure ici le classement de certaines de vos divisions, dans le cas ou, par exemple, vous seriez en forfait général avec cette dernière."
 
-msgid  "Division Id"
+msgid "Division Id"
 msgstr "Id Division"
 
-msgid  "Division"
+msgid "Division"
 msgstr "Division"
 
-msgid  "You must provide your club indice before accessing this contents !"
+msgid "You must provide your club indice before accessing this contents !"
 msgstr "Vous devez renseigner l'indice de votre club ci dessus avant de pouvoir accéder à ce contenu !"
 
-msgid  "Order"
+msgid "Order"
 msgstr "Ordre"
 
-msgid  "Index"
+msgid "Index"
 msgstr "Index"
 
-msgid  "Last Name"
+msgid "Last Name"
 msgstr "Nom"
 
-msgid  "First Name"
+msgid "First Name"
 msgstr "Prenom"
 
-msgid  "Rk."
+msgid "Rk."
 msgstr "Cl."
 
-msgid  "Home"
+msgid "Home"
 msgstr "Visités"
 
-msgid  "Away"
+msgid "Away"
 msgstr "Visiteurs"
 
-msgid  "Score"
+msgid "Score"
 msgstr "Score"
 
-msgid  "Place"
+msgid "Place"
 msgstr "Place"
 
-msgid  "Team"
+msgid "Team"
 msgstr "Equipe"
 
-msgid  "Won"
+msgid "Won"
 msgstr "Gagné"
 
-msgid  "Lost"
+msgid "Lost"
 msgstr "Perdu"
 
-msgid  "Nul"
+msgid "Nul"
 msgstr "Nul"
 
-msgid  "Points"
+msgid "Points"
 msgstr "Points"
 
-msgid  "Club selection"
+msgid "Club selection"
 msgstr "Sélection du club"
 
-msgid  "Login (http://results.aftt.be)"
+msgid "Login (http://results.aftt.be)"
 msgstr "Login (http://results.aftt.be)"
 
-msgid  "Password (http://results.aftt.be)"
+msgid "Password (http://results.aftt.be)"
 msgstr "Mot de passe (http://results.aftt.be)"
 
-msgid  "Club index"
+msgid "Club index"
 msgstr "Indice de votre Club"
 
-msgid  "Documents colors configuration"
+msgid "Documents colors configuration"
 msgstr "Configuration de la couleur des documents"
 
-msgid  "Documents title color"
+msgid "Documents title color"
 msgstr "Couleur du titre des documents"
 
-msgid  "Columns title color"
+msgid "Columns title color"
 msgstr "Couleur des titres des colones"
 
-msgid  "Borders color"
+msgid "Borders color"
 msgstr "Couleur des bordures"
 
-msgid  "Odd lines background color"
+msgid "Odd lines background color"
 msgstr "Couleur de fond des lignes impaires"
 
-msgid  "Even lines background color"
+msgid "Even lines background color"
 msgstr "Couleur de fond des lignes paires"
 
-msgid  "Fill in your club index before accessing your LDF"
+msgid "Fill in your club index before accessing your LDF"
 msgstr "Veuillez entrer l'indice de votre club avant de consulter votre liste de forces"
 
-msgid  "Fill in your club index before accessing your divisions rankings"
+msgid "Fill in your club index before accessing your divisions rankings"
 msgstr "Veuillez entrer l'indice de votre club avant de consulter le classement de vos divisions"
 
-msgid  "Fill in your club index before accessing your club members challenge"
+msgid "Fill in your club index before accessing your club members challenge"
 msgstr "Veuillez entrer l'indice de votre club avant de consulter le challenge de voitre club"
 
+msgid "Headers text color"
+msgstr "Couleur des entêtes"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+msgid "        Tablesheaderstextcolor"
+msgstr "Couleur de texte des entêtes de tableau"

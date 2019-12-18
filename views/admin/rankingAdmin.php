@@ -159,6 +159,7 @@ class RankingAdmin extends DivisionsRankingView
     
     public function printPDF()
     {
+        print_r("hemllo world !");
         $pdf = new PrintablePDF( 'P', 'mm', 'A4' );
         
         // Colors configuration
@@ -211,17 +212,17 @@ class RankingAdmin extends DivisionsRankingView
                 // Create the data cells
                 if($game->getHomeClubIndice() == $this->_club_index || $game->getAwayClubIndice() == $this->_club_index)
                     list($r, $g, $b) = sscanf("#FFFF6B", "#%02x%02x%02x");
-                    else
-                        list($r, $g, $b) = sscanf((($i % 2) != 0 ? $this->colorsMap["even"] : $this->colorsMap["odd"]), "#%02x%02x%02x");
+                else
+                    list($r, $g, $b) = sscanf((($i % 2) != 0 ? $this->colorsMap["even"] : $this->colorsMap["odd"]), "#%02x%02x%02x");
                         
-                        $pdf->SetFillColor( $r, $g, $b );
-                        
-                        $pdf->Cell( 82, 5, $game->getHomeTeam(), 1, 0, 'C', true );
-                        $pdf->Cell( 82, 5, $game->getAwayTeam(), 1, 0, 'C', true );
-                        $pdf->Cell( 18, 5, $game->getScore(), 1, 0, 'C', true );
-                        
-                        $pdf->Ln(5);
-                        $i++;
+                $pdf->SetFillColor( $r, $g, $b );
+
+                $pdf->Cell( 82, 5, $game->getHomeTeam(), 1, 0, 'C', true );
+                $pdf->Cell( 82, 5, $game->getAwayTeam(), 1, 0, 'C', true );
+                $pdf->Cell( 18, 5, $game->getScore(), 1, 0, 'C', true );
+
+                $pdf->Ln(5);
+                $i++;
             }            
             
             /* General ranking */
