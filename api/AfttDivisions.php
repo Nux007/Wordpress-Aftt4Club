@@ -46,8 +46,8 @@ class AfttDivisions extends TabTApiCommon
         parent::__construct($login, $password);
         $this->_exclusions = $exclusions;
         $this->_club_index = $club_index;
-        if($this->_exclusions === "null") {
-        	$this->_exclusions = null;
+        if(is_string($this->_exclusions)) {
+        	$this->_exclusions = array();
         }
     }
     
@@ -97,7 +97,6 @@ class AfttDivisions extends TabTApiCommon
     {   
         $Response = $this->getApi()->GetClubTeams( array("Credentials" => $this->credentials, "Club" => $this->getClubIndice(), "Season" => $this->getSeasonParam()) );
         $ddata = array();
-
         foreach ($Response->TeamEntries as $team) {
             if(!is_null($this->_exclusions) && isset($this->_exclusions) && count($this->_exclusions) > 0) {
                 

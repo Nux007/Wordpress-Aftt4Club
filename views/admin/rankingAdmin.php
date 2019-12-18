@@ -95,7 +95,7 @@ class RankingAdmin extends DivisionsRankingView
      */
     public function printExclusionsForm($exclusions)
     {
-        if($exclusions === "null") {
+        if(is_string($exclusions)) {
             $exclusions = array();
         }
         ?>

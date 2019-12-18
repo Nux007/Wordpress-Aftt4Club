@@ -275,5 +275,3 @@ class Aftt4ClubConfig
 
 
 new Aftt4ClubConfig();
-
-

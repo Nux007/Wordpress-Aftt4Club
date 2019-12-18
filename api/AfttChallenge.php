@@ -58,7 +58,7 @@ Class ClubMembersChallenge extends TabTApiCommon
         $this->_matches = null;
         $this->_matches = $this->_getMatches();
 
-	    if($exclusions === "null") {
+	    if(is_string($exclusions)) {
 		    $exclusions = null;
 	    }
 
