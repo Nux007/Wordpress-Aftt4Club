@@ -102,7 +102,10 @@ class ListeDeForcesAdmin extends ListeDeForces
         list($header_r, $header_g, $header_b) = sscanf($this->colorsMap["header"], "#%02x%02x%02x");
         list($border_r, $border_g, $border_b) = sscanf($this->colorsMap["borders"], "#%02x%02x%02x");
         list($th_r, $th_g, $th_b) = sscanf($this->colorsMap["th"], "#%02x%02x%02x");
-        
+        list($header_text_r, $header_text_g, $header_text_b) = sscanf($this->colorsMap["textHeaders"], "#%02x%02x%02x");
+        list($theader_text_r, $theader_text_g, $theader_text_b) = sscanf($this->colorsMap["textThead"], "#%02x%02x%02x");
+
+
         $pdf->SetDrawColor( $border_r, $border_g, $border_b );
         
         // LDF header configuration.
@@ -113,16 +116,19 @@ class ListeDeForcesAdmin extends ListeDeForces
         $pdf->SetFont( 'Arial', 'B', 15 );
         $pdf->Ln(0);
         $pdf->SetFillColor( $header_r, $header_g, $header_b );
+        $pdf->SetTextColor( $header_text_r, $header_text_g, $header_text_b );
         $pdf->Cell( 182, 15, $header, 1, 0, 'C', true );
-        
+
         // Writing club current season and table caption.
         $pdf->SetFont( 'Arial', '', 10 );
         $pdf->Ln(9);
         $pdf->Cell( 182, 6, $subline, 0, 0, 'C' );
-        
+        $pdf->SetTextColor( 0, 0, 0 );
+
         // Create the table header row
         $pdf->Ln( 14 );
         $pdf->SetFont( 'Arial', 'B', 10 );
+        $pdf->SetTextColor( $header_text_r, $header_text_g, $header_text_b );
         $pdf->SetFillColor( $th_r, $th_g, $th_b );
         $pdf->Cell( 18, 6, "Ordre", 1, 0, 'C', true );
         $pdf->Cell( 18, 6, "Index", 1, 0, 'C', true );
@@ -130,7 +136,8 @@ class ListeDeForcesAdmin extends ListeDeForces
         $pdf->Cell( 54, 6, "Nom", 1, 0, 'C', true );
         $pdf->Cell( 54, 6, "Prenom", 1, 0, 'C', true );
         $pdf->Cell( 14, 6, "Cl.", 1, 0, 'C', true );
-        
+        $pdf->SetTextColor( 0, 0, 0 );
+
         $pdf->Ln( 6 );
         
         // Create the table data rows

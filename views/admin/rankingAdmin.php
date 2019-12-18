@@ -52,7 +52,7 @@ class RankingAdmin extends DivisionsRankingView
      */
     public function __construct($club_index, $exclusions)
     {
-        if($exclusions === "null") {
+        if(is_string($exclusions)) {
             $exclusions = array();
         }
         parent::__construct($club_index, $exclusions);
@@ -159,18 +159,19 @@ class RankingAdmin extends DivisionsRankingView
     
     public function printPDF()
     {
-        print_r("hemllo world !");
+
         $pdf = new PrintablePDF( 'P', 'mm', 'A4' );
         
         // Colors configuration
         list($header_r, $header_g, $header_b) = sscanf($this->colorsMap["header"], "#%02x%02x%02x");
         list($border_r, $border_g, $border_b) = sscanf($this->colorsMap["borders"], "#%02x%02x%02x");
+        list($header_text_r, $header_text_g, $header_text_b) = sscanf($this->colorsMap["textHeaders"], "#%02x%02x%02x");
         
         $pdf->SetDrawColor( $border_r, $border_g, $border_b );
         $pdf->SetTextColor( 0, 0, 0);
         
         $counter = 0;
-        
+
         foreach($this->getRankings() as $divID => $ranking) {
             
             if( ($counter % 2) == 0 ) {
@@ -190,10 +191,10 @@ class RankingAdmin extends DivisionsRankingView
             
             // Writing club and season infos.
             $pdf->SetFillColor( $header_r, $header_g, $header_b );
+            $pdf->SetTextColor( $header_text_r, $header_text_g, $header_text_b );
             $pdf->Cell( 182, 10, utf8_decode($header), 1, 0, 'C', true );
-            
-            /* Last known results */
-            
+            $pdf->SetTextColor(0, 0, 0);
+
             $result = $this->getResults()[$divID];
             $pdf->Ln( 12 );
             $pdf->SetFont( 'Arial', 'B', 9 );
@@ -225,7 +226,6 @@ class RankingAdmin extends DivisionsRankingView
                 $i++;
             }            
             
-            /* General ranking */
             // Create the table header row
             $pdf->Ln( 5 );
             $pdf->SetFont( 'Arial', 'B', 11 );
@@ -266,10 +266,11 @@ class RankingAdmin extends DivisionsRankingView
             
             $pdf->Ln(18);
         }
-        
+
         // Includes js to open the print dialog box.
         $pdf->IncludeJS("this.print({bUI: false, bSilent: false, bShrinkToFit: true});");
         $pdf->Output( "divisions_ranking.pdf", "I" );
+
     }
 
     
@@ -306,10 +307,11 @@ if(isset($_POST["delete_exclusion"])) {
 
 // Printing divisions ranking as PDF".
 if(isset($_GET["print_plugin_pdf"]) && $_GET["print_plugin_pdf"] == true) {
-    $ranking = new RankingAdmin($_GET["club_index"]);
+    $ranking = new RankingAdmin($_GET["club_index"], array());
     $cmap = unserialize(htmlspecialchars_decode(base64_decode($_GET['cmap'])));
     $ranking->setColorsMap($cmap);
     $ranking->printPDF();
+
 }
 
 ?>

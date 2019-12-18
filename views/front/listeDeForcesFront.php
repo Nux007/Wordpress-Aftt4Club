@@ -54,7 +54,9 @@ class ListeDeForcesFront extends ListeDeForces
             (get_option('aftt4club_ldf_th_color') !== false) ? get_option('aftt4club_ldf_th_color') : "#9cfff4",
             (get_option('aftt4club_ldf_borders_color') !== false) ? get_option('aftt4club_ldf_borders_color') : "#f0f0f0",
             (get_option('aftt4club_ldf_nt_child_even_color') !== false) ? get_option('aftt4club_ldf_nt_child_even_color') : "#f0f0f0",
-            (get_option('aftt4club_ldf_nt_child_odd_color') !== false) ? get_option('aftt4club_ldf_nt_child_odd_color') : "#FFFFFF"
+            (get_option('aftt4club_ldf_nt_child_odd_color') !== false) ? get_option('aftt4club_ldf_nt_child_odd_color') : "#FFFFFF",
+            (get_option('aftt4club_header_text_color') !== false) ? get_option('aftt4club_header_text_color') : "#FFFFFF",
+            (get_option('aftt4club_thead_text_color') !== false) ? get_option('aftt4club_thead_text_color') : "#FFFFFF"
         );
         
         $this->printHTML($headers=false);

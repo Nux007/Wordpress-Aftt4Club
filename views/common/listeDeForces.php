@@ -80,13 +80,14 @@ class ListeDeForces extends ColorMap
         
         <div class="wrap"  style="text-align: center;">
             <div class="wrap" id="wrap">
-                <?php 
+                <?php
                 if($headers) {
                 ?>
                     <div id="ldf_header" style="background-color: <?php echo $this->colorsMap["header"]; ?>">
                         <p id='club_name'>
-                            <span style='font-size:26px; font-weight: bold;'><?php echo $header; ?></span><br />
-                            <span style='font-size: 16px;'><?php echo $subline; ?></span>
+                            <?php $headersColor = $this->colorsMap["textHeaders"]; ?>
+                            <span style='color:<?php echo $headersColor; ?>;font-size:26px; font-weight: bold;'><?php echo $header; ?></span><br />
+                            <span style='color:<?php echo $headersColor; ?>;font-size: 16px;'><?php echo $subline; ?></span>
                         </p> 
                     </div>
                 <?php
@@ -95,9 +96,12 @@ class ListeDeForces extends ColorMap
                 <table class="aftt_ldf" id="ldf" style="border: 1px solid <?php echo $this->colorsMap["borders"]; ?>;width:100%; border-spacing: 0;">
                   <thead>
                   
-                  <?php $border = "background-color: " . $this->colorsMap["th"] . ";text-align: center;"; ?>
+                  <?php
+                        $border = "background-color: " . $this->colorsMap["th"] . ";text-align: center;";
+                        $thHeadersColor = $this->colorsMap["textThead"];
+                  ?>
                   
-                    <tr class="rowtitle" style="<?php echo $border; ?>">
+                    <tr class="rowtitle" style="color:<?php echo $thHeadersColor; ?>; <?php echo $border; ?>">
                       <th id='ordre' scope="col" style="<?php echo $border; ?>"><?php _e("Order", "aftt4club") ?></th>
                       <th id='index' scope="col" style="<?php echo $border; ?>"><?php _e("Index", "aftt4club") ?></th>
                       <th id='affiliation' scope="col" style="<?php echo $border; ?>"><?php _e("Membership", "aftt4club") ?></th>
